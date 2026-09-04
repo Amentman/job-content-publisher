@@ -17,3 +17,10 @@ jobs:
           python-version: "3.12"
       - name: Validate skill metadata
         run: python3 tests/validate_repository.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Test renderer bootstrap contract
+        run: node --test skills/job-content-publisher/scripts/*.test.mjs
+      - name: Verify bootstrap dry-run
+        run: node skills/job-content-publisher/scripts/bootstrap-renderer.mjs --dry-run

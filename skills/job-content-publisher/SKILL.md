@@ -9,6 +9,14 @@ description: 用户确认求职内容母稿后，自动完成小红书图文生�
 
 **REQUIRED SUB-SKILL:** Use xiaohongshu-image-renderer for every pagination, rendering, regeneration, or visual-validation request.
 
+## 首次运行
+
+图片任务开始前运行 `node scripts/bootstrap-renderer.mjs --check`。返回 `missing`
+时运行 `node scripts/bootstrap-renderer.mjs --install`；该命令会安装图片 Skill、
+安装其运行依赖并返回 `rendererPath`。随后完整读取
+`<rendererPath>/SKILL.md`，使用那里提供的初始化、渲染和校验脚本。不得因为
+当前会话尚未重新发现新 Skill 就绕过图片校验。
+
 ## 硬规则
 
 1. **源稿唯一**：内容总表母稿的标题和正文是唯一来源；平台正文、历史分页和图片都是派生结果。
@@ -31,9 +39,26 @@ description: 用户确认求职内容母稿后，自动完成小红书图文生�
 
 ### 母稿已经确认
 
+先根据用户动作选择一种模式：
+
+#### 仅生成本地图片
+
+用户给出已确认的标题和正文或 Markdown 文件，并要求“出图”“生成图片包”时，
+不需要飞书地址。没有指定输出位置时使用当前工作目录下新建的
+`xiaohongshu-output/<日期时间>/`：
+
+1. 保留确认母稿原文；内联正文先原样保存为本地 Markdown。
+2. 使用图片 Skill 的 `init-package.mjs` 创建锁定的 `source.json`。
+3. 使用图片 Skill 渲染并校验；不得在本技能中另写分页、布局或截图逻辑。
+4. 返回图片包路径、图片数量、`sourceHash`、`exactText` 和校验结果。
+
+#### 生成并写回飞书
+
+只有用户明确要求写回飞书，或提供了目标飞书记录时才执行：
+
 1. 按飞书写回规范预检并定位或创建唯一的小红书子记录；读取关联母稿。
 2. 锁定母稿标题、正文、`sourceType`、内容 ID、record ID 和标准化正文 SHA-256 `sourceHash`，写入只读 `source.json`。
-3. 调用 `xiaohongshu-image-renderer`；不得在本技能中分页、写布局、渲染或改写源稿。
+3. 调用图片 Skill；不得在本技能中分页、写布局、渲染或改写源稿。
 4. 仅当返回包的 `validation.json.ok=true`、`final-verification.json.ok=true`、`exactText=true`、`overflowCount=0`、`sourceHash` 与锁定值一致，且 `NN.png` 顺序与 manifest 一致时，继续。
 5. 按 [feishu-writeback-rules.md](references/feishu-writeback-rules.md) 写入逐页完整文案和附件，顺序上传，并读回验证后更新真实存在的“已定稿”状态。
 
@@ -41,4 +66,5 @@ description: 用户确认求职内容母稿后，自动完成小红书图文生�
 
 ## 最终报告
 
-返回飞书链接、内容 ID、平台内容 ID、record ID、图片数量、`exactText`、附件读回结果、内容状态，并明确“是否发布”保持未变。
+本地图片模式返回包路径、图片清单、`sourceHash`、`exactText` 和校验结果。
+飞书模式再返回飞书链接、内容 ID、平台内容 ID、record ID、附件读回结果、内容状态，并明确“是否发布”保持未变。

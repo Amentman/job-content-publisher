@@ -6,14 +6,21 @@
 
 ```bash
 npx skills add Amentman/job-content-publisher@job-content-publisher -g -y
-npx skills add Amentman/xiaohongshu-image-renderer@xiaohongshu-image-renderer -g -y
 ```
 
 安装后可以说：`使用 $job-content-publisher 把这份确认母稿生成图片包。`
 
+第一次出图时，Skill 会自动安装并检查 `xiaohongshu-image-renderer` 及其
+Playwright/Chromium 运行环境。需要手动预装时，在本 Skill 目录运行：
+
+```bash
+node scripts/bootstrap-renderer.mjs --install
+```
+
 ## 边界
 
 - 确认母稿是唯一正文来源；用哈希防止中途错稿。
+- 只生成本地图片时不要求飞书地址。
 - 只有需要飞书写回时才配置 `lark-cli` 和字段映射。
 - 图片按页码顺序上传，写后必须重新读取数量、正文和附件。
 - 打开发布页、立即发布或定时发布都需要针对该次动作的明确授权。
