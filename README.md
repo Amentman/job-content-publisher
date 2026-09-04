@@ -121,7 +121,7 @@ node scripts/bootstrap-renderer.mjs --install
 xiaohongshu-output/时间戳/
 ├── source.json
 ├── pages.json
-├── render-manifest.json
+├── manifest.json
 ├── validation.json
 ├── final-verification.json
 ├── 01.png
