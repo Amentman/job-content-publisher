@@ -1,5 +1,9 @@
 # 寂辉求职内容发布流水线
 
+> **获取 Skill：** [安装页面](https://skills.sh/Amentman/job-content-publisher) · [直接下载 ZIP](https://github.com/Amentman/job-content-publisher/releases/latest/download/job-content-publisher.zip) · [完整安装说明](#安装)
+>
+> 一行安装：`npx skills add Amentman/job-content-publisher@job-content-publisher -g -y`
+
 这是一个连接“确认母稿、图片生成、飞书写回”的 Codex Skill。它把已经定稿的求职内容锁定为唯一来源，调用独立图片引擎生成并校验小红书图片包，再按用户要求选择是否写回飞书。生成图片、写回飞书和公开发布是三个不同动作。
 
 ## 这个 Skill 解决什么问题
