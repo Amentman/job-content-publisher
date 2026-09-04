@@ -4,6 +4,8 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const scriptPath = fileURLToPath(import.meta.url);
+const RENDERER_VERSION = "0.2.0";
+const RENDERER_SOURCE = `https://github.com/Amentman/xiaohongshu-image-renderer/tree/v${RENDERER_VERSION}`;
 
 export function buildBootstrapPlan({ platform = process.platform } = {}) {
   const npx = platform === "win32" ? "npx.cmd" : "npx";
@@ -12,7 +14,7 @@ export function buildBootstrapPlan({ platform = process.platform } = {}) {
       command: npx,
       args: [
         "skills", "add",
-        "Amentman/xiaohongshu-image-renderer",
+        RENDERER_SOURCE,
         "--skill", "xiaohongshu-image-renderer",
         "--agent", "codex",
         "--global", "--yes", "--copy",
@@ -37,11 +39,18 @@ function run(command, args, options = {}) {
   return result.stdout || "";
 }
 
-function findReadyRenderer(items) {
+export function findReadyRenderer(items) {
   return items.find(item => {
     if (item.name !== "xiaohongshu-image-renderer" || !item.path) return false;
-    return fs.existsSync(path.join(item.path, "SKILL.md"))
-      && fs.existsSync(path.join(item.path, "scripts", "bootstrap.mjs"));
+    const packagePath = path.join(item.path, "package.json");
+    if (!fs.existsSync(path.join(item.path, "SKILL.md"))
+      || !fs.existsSync(path.join(item.path, "scripts", "bootstrap.mjs"))
+      || !fs.existsSync(packagePath)) return false;
+    try {
+      return JSON.parse(fs.readFileSync(packagePath, "utf8")).version === RENDERER_VERSION;
+    } catch {
+      return false;
+    }
   });
 }
 

@@ -24,3 +24,11 @@ jobs:
         run: node --test skills/job-content-publisher/scripts/*.test.mjs
       - name: Verify bootstrap dry-run
         run: node skills/job-content-publisher/scripts/bootstrap-renderer.mjs --dry-run
+      - name: Install pinned renderer and render its demo
+        working-directory: skills/job-content-publisher
+        run: |
+          node scripts/bootstrap-renderer.mjs --install
+          node scripts/bootstrap-renderer.mjs --check
+          renderer_path="$(npx skills list --global --json | node -e 'let input=""; process.stdin.on("data", chunk => input += chunk); process.stdin.on("end", () => { const hit = JSON.parse(input).find(item => item.name === "xiaohongshu-image-renderer"); if (!hit) process.exit(1); process.stdout.write(hit.path); });')"
+          test "$(node -p "require('$renderer_path/package.json').version")" = "0.2.0"
+          npm run demo --prefix "$renderer_path"

@@ -27,6 +27,10 @@ def main() -> None:
     assert f"Amentman/{manifest['name']}" in readme
     assert "npx skills add" in readme
 
+    workflow = (ROOT / ".github" / "workflows" / "test.yml").read_text()
+    assert "Install pinned renderer and render its demo" in workflow
+    assert "bootstrap-renderer.mjs --install" in workflow
+
     forbidden = [
         "/" + "Users/" + "amant/",
         "space" + "_id:",

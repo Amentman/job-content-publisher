@@ -10,7 +10,7 @@ npx skills add Amentman/job-content-publisher@job-content-publisher -g -y
 
 安装后可以说：`使用 $job-content-publisher 把这份确认母稿生成图片包。`
 
-第一次出图时，Skill 会自动安装并检查 `xiaohongshu-image-renderer` 及其
+第一次出图时，Skill 会自动安装并检查锁定的 `xiaohongshu-image-renderer v0.2.0` 及其
 Playwright/Chromium 运行环境。需要手动预装时，在本 Skill 目录运行：
 
 ```bash
