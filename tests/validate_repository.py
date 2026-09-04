@@ -30,6 +30,7 @@ def main() -> None:
     workflow = (ROOT / ".github" / "workflows" / "test.yml").read_text()
     assert "Install pinned renderer and render its demo" in workflow
     assert "bootstrap-renderer.mjs --install" in workflow
+    assert '"0.2.1"' in workflow
 
     forbidden = [
         "/" + "Users/" + "amant/",

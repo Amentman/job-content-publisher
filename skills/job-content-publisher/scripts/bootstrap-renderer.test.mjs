@@ -12,7 +12,7 @@ test("one bootstrap installs the renderer globally for Codex and verifies discov
       command: "npx",
       args: [
         "skills", "add",
-        "https://github.com/Amentman/xiaohongshu-image-renderer/tree/v0.2.0",
+        "https://github.com/Amentman/xiaohongshu-image-renderer/tree/v0.2.1",
         "--skill", "xiaohongshu-image-renderer",
         "--agent", "codex",
         "--global", "--yes", "--copy",
@@ -35,7 +35,7 @@ test("discovery rejects an installed renderer with the wrong release version", (
 
   assert.equal(findReadyRenderer([item]), undefined);
 
-  fs.writeFileSync(path.join(root, "package.json"), JSON.stringify({ version: "0.2.0" }));
+  fs.writeFileSync(path.join(root, "package.json"), JSON.stringify({ version: "0.2.1" }));
   assert.equal(findReadyRenderer([item]), item);
 });
 

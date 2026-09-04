@@ -12,7 +12,7 @@ description: 用户确认求职内容母稿后，自动完成小红书图文生�
 ## 首次运行
 
 图片任务开始前运行 `node scripts/bootstrap-renderer.mjs --check`。返回 `missing`
-时运行 `node scripts/bootstrap-renderer.mjs --install`；该命令会安装并校验锁定的图片 Skill v0.2.0、
+时运行 `node scripts/bootstrap-renderer.mjs --install`；该命令会安装并校验锁定的图片 Skill v0.2.1、
 安装其运行依赖并返回 `rendererPath`。随后完整读取
 `<rendererPath>/SKILL.md`，使用那里提供的初始化、渲染和校验脚本。不得因为
 当前会话尚未重新发现新 Skill 就绕过图片校验。

@@ -4,7 +4,7 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const scriptPath = fileURLToPath(import.meta.url);
-const RENDERER_VERSION = "0.2.0";
+const RENDERER_VERSION = "0.2.1";
 const RENDERER_SOURCE = `https://github.com/Amentman/xiaohongshu-image-renderer/tree/v${RENDERER_VERSION}`;
 
 export function buildBootstrapPlan({ platform = process.platform } = {}) {
