@@ -38,6 +38,8 @@ def assert_workflow_docs_complete(readme: str, skill_text: str) -> None:
     assert "输入 → 处理 → 输出" in skill_text
     assert "manifest.json" in readme
     assert "render-manifest.json" not in readme
+    assert "只读 `source.json`" not in readme
+    assert "只读 `source.json`" not in skill_text
 
 
 def main() -> None:

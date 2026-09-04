@@ -98,7 +98,7 @@ node scripts/bootstrap-renderer.mjs --install
 | 1. 确认母稿 | 明确“可以、定稿、就按这个” | 锁定标题和正文；未确认则停止在确认环节 | 唯一母稿来源 |
 | 2. 选择模式 | 仅本地图片，或图片加飞书写回 | 决定是否需要飞书配置和记录定位 | 清晰的执行范围 |
 | 3. 准备引擎 | Node.js 20+ | 检查图片 Skill；缺失时安装锁定版本和 Chromium | `rendererPath` 与就绪状态 |
-| 4. 锁定来源 | 最终标题、正文或 Markdown 文件 | 保存原文并计算标准化 `sourceHash` | 只读 `source.json` |
+| 4. 锁定来源 | 最终标题、正文或 Markdown 文件 | 保存原文并计算标准化 `sourceHash` | 工作流锁定的 `source.json` |
 | 5. 生成图片 | 可选输出路径 | 初始化内容包、分页并渲染编号 PNG | `01.png` 至 `NN.png` |
 | 6. 图片验收 | 无 | 核对原文、哈希、页码、尺寸和溢出 | manifest 与验证 JSON |
 | 7A. 本地结束 | 仅本地模式 | 返回图片包，不索要飞书信息 | 包路径、页数和校验结果 |

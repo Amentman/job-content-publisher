@@ -69,7 +69,7 @@ description: Use when 用户已经确认求职内容母稿，并要求生成小�
 只有用户明确要求写回飞书，或提供了目标飞书记录时才执行：
 
 1. 按飞书写回规范预检并定位或创建唯一的小红书子记录；读取关联母稿。
-2. 锁定母稿标题、正文、`sourceType`、内容 ID、record ID 和标准化正文 SHA-256 `sourceHash`，写入只读 `source.json`。
+2. 锁定母稿标题、正文、`sourceType`、内容 ID、record ID 和标准化正文 SHA-256 `sourceHash`，写入工作流锁定的 `source.json`；后续步骤不得改写它。
 3. 调用图片 Skill；不得在本技能中分页、写布局、渲染或改写源稿。
 4. 仅当返回包的 `validation.json.ok=true`、`final-verification.json.ok=true`、`exactText=true`、`overflowCount=0`、`sourceHash` 与锁定值一致，且 `NN.png` 顺序与 manifest 一致时，继续。
 5. 按 [feishu-writeback-rules.md](references/feishu-writeback-rules.md) 写入逐页完整文案和附件，顺序上传，并读回验证后更新真实存在的“已定稿”状态。
